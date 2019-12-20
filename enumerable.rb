@@ -42,9 +42,9 @@ module Enumerable
     result
   end
 
-  def my_map
+  def my_map(&proc)
     result = []
-    self.my_each {|item| result.push(yield(item))}
+    self.my_each {|item| (proc.nil?) ? result << yield(item) : result << proc.call(item)}
     result
   end
 
