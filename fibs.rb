@@ -14,5 +14,3 @@ def fibs_rec(n, array = [1, 1])
   array << array[-1] + array[-2]
   fibs_rec(n-1, array)
 end
-
-p fibs_rec(60)
