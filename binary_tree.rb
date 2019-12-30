@@ -144,17 +144,10 @@ class Tree
     @root = Tree.build_tree(level_order)
   end
 
-  private
-  
-  def self.build_tree(array, start = 0, ending = array.length)
-    array = array.uniq.sort
-    return if (start > ending)
-    mid = start + ((ending - start) / 2)
-    return if array[mid].nil?
-    node = Node.new(array[mid])
-    node.left = build_tree(array, start, mid - 1)
-    node.right = build_tree(array, mid + 1, ending)
-    return node
+  def pretty_print(node = root, prefix="", is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? "│   " : "    "}", false) if node.right
+    puts "#{prefix}#{is_left ? "└── " : "┌── "}#{node.value.to_s}"
+    pretty_print(node.left, "#{prefix}#{is_left ? "    " : "│   "}", true) if node.left
   end
 
   def min_node(node = @root)
@@ -172,4 +165,21 @@ class Tree
     end
     current
   end
+
+  private
+  
+  def self.build_tree(array, start = 0, ending = Array(array).length)
+    array = Array(array).uniq.sort
+    return if (start > ending)
+    mid = start + ((ending - start) / 2)
+    return if array[mid].nil?
+    node = Node.new(array[mid])
+    node.left = build_tree(array, start, mid - 1)
+    node.right = build_tree(array, mid + 1, ending)
+    return node
+  end
 end
+
+
+tree = Tree.new(1..20)
+tree.pretty_print
