@@ -19,15 +19,18 @@ module Enumerable
     self.my_each{ |item| result << item if yield(item) }
     result
   end
+
+  def my_filter(&block)
+    self.my_select(&block)
+  end
   
   def my_all?
-    result = true
-    self.my_each{ |item| result = false if !yield(item) }
-    result
+    self.my_each{ |item| return false if !yield(item) }
+    true
   end
 
   def my_any?
-    self.my_each { |item| return true if yield(item)}
+    self.my_each{ |item| return true if yield(item)}
     false
   end
 
@@ -56,13 +59,16 @@ module Enumerable
 end
 a = ["adam", "samuel", "poulton"]
 
-puts a.my_all? {|i| i=="adam"} == false
-puts a.my_all? {|i| i.is_a? String} == true
-puts a.my_any? {|i| i.is_a? String} == true
-puts a.my_any? {|i| i=="bob"} == false
-puts a.my_any? {|i| i=="poulton"} == true
-puts a.my_count {|i| i=="adam"} == 1
-puts a.my_count {|i| i.length > 4} == 2
-puts a.my_count {|i| i=="bob"} == 0
-puts a.map {|i| i.length} == [4, 6, 7]
-puts a.my_inject(0) {|sum, item| sum + item.length} == 17
+# puts a.my_all? {|i| i=="adam"} == false
+# puts a.my_all? {|i| i.is_a? String} == true
+# puts a.my_any? {|i| i.is_a? String} == true
+# puts a.my_any? {|i| i=="bob"} == false
+# puts a.my_any? {|i| i=="poulton"} == true
+# puts a.my_count {|i| i=="adam"} == 1
+# puts a.my_count {|i| i.length > 4} == 2
+# puts a.my_count {|i| i=="bob"} == 0
+# puts a.map {|i| i.length} == [4, 6, 7]
+# puts a.my_inject(0) {|sum, item| sum + item.length} == 17
+
+puts a.my_select {|i| i == "adam"}
+puts a.my_filter {|i| i == "adam"}
