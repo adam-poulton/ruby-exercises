@@ -33,8 +33,8 @@ def caesar_cipher(input, offset)
 end
 
 
-puts "Enter string:"
-input = gets.chomp
-puts "Enter offset:"
-offset = gets.chomp.to_i
-puts caesar_cipher(input, offset)
+# puts "Enter string:"
+# input = gets.chomp
+# puts "Enter offset:"
+# offset = gets.chomp.to_i
+# puts caesar_cipher(input, offset)
